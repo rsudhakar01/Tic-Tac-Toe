@@ -8,6 +8,7 @@ public class TicTacToe {
   
   static ArrayList<Integer> playerPosition = new ArrayList<Integer>();
   static ArrayList<Integer> cpuPosition = new ArrayList<Integer>(); 
+  static List<List> winner = new ArrayList<List>();
   
   public static void main(String[] args) {
     ArrayList<Integer> playedPos = new ArrayList<>(5); // maximum number of times played is 5 in the 
@@ -77,7 +78,9 @@ public class TicTacToe {
     if((!playedPos.contains(5)) && (!compPos.contains(5))) {
       return 5; // plays the center of the board as long as it hasn't been played
     }
-    if()
+    if(playedPos.containsAll(winner)) {
+      return 4; 
+    }
     return 0;
   }
   
@@ -97,7 +100,7 @@ public class TicTacToe {
     List diag1 = Arrays.asList(1, 5, 9);
     List diag2 = Arrays.asList(3, 5, 7);
 
-    List<List> winner = new ArrayList<List>();
+    
 
     winner.add(topRow);
     winner.add(midRow);
