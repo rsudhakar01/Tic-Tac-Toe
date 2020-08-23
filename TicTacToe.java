@@ -10,6 +10,9 @@ public class TicTacToe {
   static ArrayList<Integer> cpuPosition = new ArrayList<Integer>(); 
   
   public static void main(String[] args) {
+    ArrayList<Integer> playedPos = new ArrayList<>(5); // maximum number of times played is 5 in the 
+                                                       // event of a tie
+    ArrayList<Integer> compPos = new ArrayList<>(5);
     char[][] gameBoard = {{' ', '|', ' ', '|', ' '}, 
                           {'-', '+', '-', '+', '-'},
                           {' ', '|', ' ', '|', ' '}, 
@@ -31,7 +34,8 @@ public class TicTacToe {
         System.out.println("Position Taken! Please pick a valid position");
         playerPos = sc.nextInt();
       }
-
+      playedPos.add(playerPos);
+      
       fill(playerPos, gameBoard, "player");
 
       String result = checkWinner(); //in case of tie, checks winner here too
@@ -40,11 +44,16 @@ public class TicTacToe {
         break;
       }
 
-      Random rand = new Random();
-      int cpuPos = randomize(); // chooses random position from 1-9
+     // Random rand = new Random();
+     // int cpuPos = randomize(); // chooses random position from 1-9
+      int cpuPos = playCPU(playedPos, compPos);
 
-      while (playerPosition.contains(cpuPos) || cpuPosition.contains(cpuPos)) {
-        cpuPos = randomize();
+      while (playerPosition.contains(cpuPos) || cpuPosition.contains(cpuPos)) { /*if the move picked
+                                                                                  by the cpu is 
+                                                                                  already played it 
+                                                                                  randomizes to pick 
+                                                                                  another move */
+        cpuPos = playCPU(playedPos, compPos);
       }
       fill(cpuPos, gameBoard, "cpu");
       printBoard(gameBoard);
@@ -62,6 +71,14 @@ public class TicTacToe {
     Random rand = new Random();
     int pos = rand.nextInt(9) + 1;
     return pos;
+  }
+  
+  public static int playCPU(ArrayList<Integer> playedPos, ArrayList<Integer> compPos) {
+    if((!playedPos.contains(5)) && (!compPos.contains(5))) {
+      return 5; // plays the center of the board as long as it hasn't been played
+    }
+    if()
+    return 0;
   }
   
   public static String checkWinner() {
